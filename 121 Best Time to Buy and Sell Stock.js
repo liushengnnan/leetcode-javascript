@@ -45,3 +45,13 @@ var maxProfit = function(prices) {
     
     return max;
 };
+
+var maxProfit = function(prices) {
+    let min = prices[0];
+    let max = 0;
+    for (var i = 0; i < prices.length; i++) {
+        max = prices[i] - min > max ? prices[i] - min : maxs;
+        min = min > prices[i] ? prices[i] : min;
+    }
+    return max;
+};

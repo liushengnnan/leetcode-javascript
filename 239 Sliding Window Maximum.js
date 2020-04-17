@@ -20,7 +20,7 @@
  */
 var maxSlidingWindow = function(nums, k) {
     var result = [],
-        linkedListWithTwoEndsOps = [],
+        window = [],
         len = nums.length,
         i;
     
@@ -30,27 +30,67 @@ var maxSlidingWindow = function(nums, k) {
     
     for (i = 0; i < len; i++) {
         // Remove anything that is less than the current value
-        // so linkedListWithTwoEndsOps maintains values greater than the curret value
-        while (linkedListWithTwoEndsOps.length > 0 && nums[linkedListWithTwoEndsOps[linkedListWithTwoEndsOps.length - 1]] < nums[i]) {
-            var val = linkedListWithTwoEndsOps.pop();
+        // so window maintains values greater than the curret value
+        while (window.length > 0 && nums[window[window.length - 1]] < nums[i]) {
+            var val = window.pop();
         }
         
-        // In case that all elements in the linkedListWithTwoEndsOps are all greater than the current one (descending order)
+        // In case that all elements in the window are all greater than the current one (descending order)
         // Shift out the 
-        if (linkedListWithTwoEndsOps[0] < i - k + 1) {
-            linkedListWithTwoEndsOps.shift();
+        if (window[0] < i - k + 1) {
+            window.shift();
         }
         
-        linkedListWithTwoEndsOps.push(i);
+        window.push(i);
         
         // For each sliding window movement, we record the highest value in that sliding window
         // i >= k - 1 to ensure that we don't prematurely record values before we get to the full range of the first sliding window
         // e.g. [1  3  -1] -3  5  3  6  7       3
         // this ensure that i is at least at -1 (index 2)
         if (i >= k - 1) {
-            result.push(nums[linkedListWithTwoEndsOps[0]]);
+            result.push(nums[window[0]]);
         }
     }
-    
     return result;
 };
+
+function maxSlidingWindow(nums, k) {
+    const res = [];
+    const q = [];
+  
+    for (let i = 0; i < nums.length; i++) {
+      while (q.length >= 1 && nums[i] > q[q.length - 1]) q.pop();
+      q.push(nums[i]);
+  
+      // When i + 1 - k >= 0, the window is fully overlapping nums
+      const j = i + 1 - k;
+      if (j >= 0) {
+        res.push(q[0]);
+        if (nums[j] === q[0]) q.shift();  // If the biggest element in q is about to exit window, remove it from q
+      }
+    }
+    return res;
+  }
+
+var maxSlidingWindow_2 = function(nums, k) {
+    let window = [];
+    let result = [];
+    for (i = 0; i < nums.length; i++) {
+        console.log(window);
+        const j = i + 1 - k;
+
+        if (j >= 0 && window[0] === nums[j]) {
+            window.shift()
+        }
+        while (window.length > 0 && window[window.length - 1] <= nums[i]) {
+            window.pop()
+        }
+        window.push(nums[i])
+        if (j >= 0) {
+            result.push(window[0])
+        }
+    }
+    return result;
+};
+
+  const v = maxSlidingWindow_2([1,3,-1,-3,5,3,6,7], 3);

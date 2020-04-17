@@ -44,3 +44,26 @@ var search = function(nums, target) {
     
     return -1;
 };
+
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var search = function(nums, target) {
+    if (nums === null || nums.length === 0) { return -1; }
+    let node = nums[nums.length - 1];
+    let _nums = nums.concat(nums);
+    let l = 0 
+    let r = _nums.length - 1;
+
+    while (l <= r) {
+        let mid = l + Math.floor((r - l) / 2);
+        if (_nums[mid] === target) {
+            return mid % nums.length;
+        } else {
+            
+        }
+    }
+};

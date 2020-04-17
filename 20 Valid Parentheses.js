@@ -50,3 +50,19 @@ var isValid = function(s) {
     
     return stack.length === 0;
 };
+
+var isValid_1 = function(s) {
+    let stack = [];
+    const map = {')':'(',']':'[','}':'{'}
+    for(var e of s) {
+        console.log(e);
+        if (!map.hasOwnProperty(e)) {
+            stack.push(e);
+        } else if (stack.length === 0 || map[e] !== stack.pop()){
+            return false
+        }
+    };
+    return stack.length === 0
+};
+
+const o = isValid_1('()');

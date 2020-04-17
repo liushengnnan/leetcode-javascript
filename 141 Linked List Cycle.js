@@ -78,3 +78,15 @@ var hasCycle = function(head) {
     
     return false;
 };
+
+var hasCycle1 = function(head) {
+    let fast, slow = head, head;
+    while(fast && slow && fast.next) {
+        fast = fast.next.next;
+        slow = slow.next;
+        if (fast === slow) {
+            return true
+        }
+    }
+    return false;
+};

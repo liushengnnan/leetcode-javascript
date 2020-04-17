@@ -39,3 +39,16 @@ var isPerfectSquare = function(num) {
     }
     return false;  
 };
+
+var isPerfectSquare = function(num) {
+    let left = 1;
+    let right = num;
+    while(left<=right) {
+        let mid = Math.floor((left + right)/2);
+        let x = mid * mid;
+        if (x == num) return true;
+        if (x > num) { right = mid - 1;}
+        else {left = mid + 1}
+    }
+    return false
+};

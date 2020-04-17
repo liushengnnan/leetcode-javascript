@@ -47,3 +47,27 @@ var levelOrder = function(root) {
     
     return result;
 };
+
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrder = function(root) {
+    if (root == null) {return [];}
+    let queue = [];
+    queue.push(root)
+    let result = [];
+    while(queue.length !== 0){
+        let nextLevelQueue = [];
+        let curLevelVisit = [];
+        while(queue.length > 0){ 
+            let node = queue.shift();
+            curLevelVisit.push(node.val);
+            if (node.left) {nextLevelQueue.push(node.left)}
+            if (node.right) {nextLevelQueue.push(node.right)}
+        }
+        result.push(curLevelVisit);
+        queue = nextLevelQueue;
+    }
+    return result;
+};

@@ -37,3 +37,29 @@ var maxProduct = function(nums) {
    
   return ans
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxProduct_1 = function(nums) {
+  if(nums === null || nums.length === 0){
+    return 0;
+  }
+  var max = nums[0];
+  var min = nums[0];
+  var result = nums[0];
+  console.log('max = ' + max + ' min = ' + min + ' result = ' + result);
+  for(var i = 1; i < nums.length; i++) {
+    let num = nums[i];
+    let curMax = max * num;
+    let curMin = min * num;
+    max = Math.max(curMax, curMin, num);
+    min = Math.min(curMax, curMin, num);
+    result = Math.max(max,result);
+    console.log('max = ' + max + ' min = ' + min + ' result = ' + result);
+  }
+  return result;
+};
+
+let x = maxProduct_1([2,3,-2,4,5,-6,-9]);

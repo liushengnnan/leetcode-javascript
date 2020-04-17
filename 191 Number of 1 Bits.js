@@ -36,3 +36,30 @@ var hammingWeight = function(n) {
     
     return count;
 };
+
+var hammingWeight_1 = function(n) {
+    let count = 0;
+    while(n !== 0){
+        const str = n.toString(2);
+        console.log(str)
+        if (n & 1){count++;} 
+        n = n >> 1;
+    }
+    return count;
+};
+
+/**
+ * @param {number} n - a positive integer
+ * @return {number}
+ */
+var hammingWeight = function(n) {
+    const str = (n >>> 0).toString(2);
+    let result = 0;
+    for(const char of str) {
+      if(char === '1') result += 1;
+    }
+    return result;
+  };
+
+let x = hammingWeight_1(39);
+console.log(x);

@@ -19,3 +19,14 @@
 var isPowerOfTwo = function(n) {
     return n <= 0 ? false : (n & (n-1)) === 0;
 };
+
+var isPowerOfTwo = function(n) {
+    
+    let total = 1;
+    
+    while (total < n) {
+        total *= 2;
+    }
+    
+    return total === n; 
+};

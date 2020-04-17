@@ -34,3 +34,13 @@ var reverseList = function(head) {
     
     return prev;
 };
+
+var reverseList1 = function(head) {
+    if (head === null || head.next === null) {
+      return head
+    }
+    let tmp = reverseList(head.next);
+    head.next.next = head;
+    head.next = null;
+    return tmp;
+};

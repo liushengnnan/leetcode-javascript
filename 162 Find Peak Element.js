@@ -29,3 +29,7 @@ var findPeakElement = function(nums) {
     
     return mid;
 };
+
+var findPeakElement_1 = function(nums) {
+
+};

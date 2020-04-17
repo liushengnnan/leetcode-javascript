@@ -25,3 +25,43 @@ var majorityElement = function(nums) {
     
     return nums[mj];
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var majorityElement = function(nums) {
+    let map = new Map();
+    let i = 0;
+    while(i< nums.length) {
+        let x = map.get(e);
+        if (x === undefined) {
+            map.set(e, 1);
+        } else {
+            map.set(e, x+1);
+        }
+        if (map.get(e) >= nums.length/2) { 
+            return e;
+        }
+        i++;
+    }
+    return -1;
+};
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var majorityElement = function(nums) {
+    var majority = 0;
+    var count = 0;
+    nums.forEach(e => {
+        if (count == 0) {
+            majority = e;
+            count = 1;
+        } else {
+            (e == majority) ? count++ : count--;
+        }
+    });
+    return majority;
+};

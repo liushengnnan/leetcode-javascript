@@ -58,3 +58,40 @@ var majorityElement = function(nums) {
     
     return results;
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var majorityElement = function(nums) {
+    let v1 = 0; cnt1 = 0;
+    let v2 = 0; cnt2 = 0;
+ 
+    for (let index = 0; index < nums.length; index++) {
+        const e = nums[index];
+        if (cnt1 == 0) {v1 = e; cnt1 = 1; continue;} 
+        else {
+            if (e == v1) {
+                cnt1++;
+            } else {
+                if (cnt2 == 0) {v2 = e; cnt2 = 1; continue;} 
+                else {
+                    if (e == v2) {
+                        cnt2++;
+                    } else {
+                        cnt1--;
+                        cnt2--;
+                    }
+                }
+            }
+        }
+    }
+    let array = [];
+    if (cnt1 > nums.length / 3) {
+        array.push(v1)
+    }
+    if (cnt2 > nums.length / 3) {
+        array.push(v2)
+    }
+    return array;
+};
