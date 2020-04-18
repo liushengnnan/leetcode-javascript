@@ -2,22 +2,19 @@
  * @param {string} s
  * @return {number}
  */
-var romanToInt = function(s) {
+var romanToInt = function (s) {
     var result = 0;
-    
-    for(var i = 0; i < s.length; i++){
-        if(i > 0 && (c2n(s[i]) > c2n(s[i-1]))){
-            result -= 2*c2n(s[i-1]); // because previously added [!!!]
+    for (var i = 0; i < s.length; i++) {
+        if (i > 0 && (c2n(s[i]) > c2n(s[i - 1]))) {
+            result -= 2 * c2n(s[i - 1]); // because previously added [!!!]
         }
-        
         result += c2n(s[i]);
     }
-    
     return result;
 };
 
-var c2n = function(c){
-    switch(c){
+var c2n = function (c) {
+    switch (c) {
         case 'I': return 1;
         case 'V': return 5;
         case 'X': return 10;
@@ -29,3 +26,20 @@ var c2n = function(c){
     }
 }
 
+symbols = {
+    "I": 1,
+    "V": 5,
+    "X": 10,
+    "L": 50,
+    "C": 100,
+    "D": 500,
+    "M": 1000
+};
+
+var romanToInt = function (s) {
+    value = 0;
+    for (let i = 0; i < s.length; i += 1) {
+        symbols[s[i]] < symbols[s[i + 1]] ? value -= symbols[s[i]] : value += symbols[s[i]]
+    }
+    return value
+};
