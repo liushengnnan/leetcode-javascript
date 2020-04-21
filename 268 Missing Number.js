@@ -20,3 +20,14 @@
  
     return res;
 };
+
+var missingNumber = function(nums) {
+    let res = 0;
+    for(let i = 1; i <= nums.length; i++) {
+        res = res - nums[i - 1] + i;
+    }
+    return res;
+};
+
+let x = missingNumber([9,6,4,2,3,5,7,0,1]);
+console.log(x);

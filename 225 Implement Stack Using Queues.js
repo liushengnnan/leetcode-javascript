@@ -1,39 +1,50 @@
-// Leetcode #225
-// Language: Javascript
-// Problem: https://leetcode.com/problems/implement-stack-using-queues/
-// Author: Chihung Yu
 /**
- * @constructor
+ * Initialize your data structure here.
  */
-var Stack = function() {
-    this.stack = [];  
+var MyStack = function() {
+    this.queue = [];
 };
 
 /**
+ * Push element x onto stack. 
  * @param {number} x
- * @returns {void}
+ * @return {void}
  */
-Stack.prototype.push = function(x) {
-    this.stack.push(x);
+MyStack.prototype.push = function(x) {
+    let q = [x];
+    q.push(...this.queue);
+    this.queue = q;
 };
 
 /**
- * @returns {void}
+ * Removes the element on top of the stack and returns that element.
+ * @return {number}
  */
-Stack.prototype.pop = function() {
-    this.stack.pop();  
+MyStack.prototype.pop = function() {
+    return this.queue.shift();
 };
 
 /**
- * @returns {number}
+ * Get the top element.
+ * @return {number}
  */
-Stack.prototype.top = function() {
-    return this.stack[this.stack.length - 1];
+MyStack.prototype.top = function() {
+    return this.queue[0];
 };
 
 /**
- * @returns {boolean}
+ * Returns whether the stack is empty.
+ * @return {boolean}
  */
-Stack.prototype.empty = function() {
-    return this.stack.length === 0;
+MyStack.prototype.empty = function() {
+    return !this.queue.length;
 };
+
+/** 
+ * Your MyStack object will be instantiated and called as such:
+ * var obj = new MyStack()
+ * obj.push(x)
+ * var param_2 = obj.pop()
+ * var param_3 = obj.top()
+ * var param_4 = obj.empty()
+ */
