@@ -31,68 +31,112 @@
  * @param {number[][]} prerequisites
  * @return {number[]}
  */
-var findOrder = function(numCourses, prerequisites) {
+var findOrder = function (numCourses, prerequisites) {
     var courseWithOtherCoursesDependOn = {};
     var courseDependsOnOtherCourses = {};
-    
-    prerequisites.forEach((prerequisite)=> {
+
+    prerequisites.forEach((prerequisite) => {
         var prereqCourse = prerequisite[1];
         var courseToTake = prerequisite[0]
-        
-        
+
+
         courseWithOtherCoursesDependOn[prereqCourse] = courseWithOtherCoursesDependOn[prereqCourse] || new Set();
         courseWithOtherCoursesDependOn[prereqCourse].add(courseToTake);
-        
+
         courseDependsOnOtherCourses[prereqCourse] = courseDependsOnOtherCourses[prereqCourse] || new Set();
         courseDependsOnOtherCourses[courseToTake] = courseDependsOnOtherCourses[courseToTake] || new Set();
         courseDependsOnOtherCourses[courseToTake].add(prereqCourse);
     });
-    
+
     var courseWithNoDependencies = [];
-    
-    for(var i in courseDependsOnOtherCourses) {
-        if(courseDependsOnOtherCourses[i].size === 0) {
+
+    for (var i in courseDependsOnOtherCourses) {
+        if (courseDependsOnOtherCourses[i].size === 0) {
             courseWithNoDependencies.push(i);
         }
     }
-    
+
 
     // pretty much the same as Course Schedule I. Just need to add those non root
     var courseOrders = [];
     var hasCourseOrders = {};
-    
-    while(courseWithNoDependencies.length > 0) {
+
+    while (courseWithNoDependencies.length > 0) {
         var rootCourse = courseWithNoDependencies.shift();
-        
+
         courseOrders.push(parseInt(rootCourse));
         hasCourseOrders[parseInt(rootCourse)] = true;
-        
-        if(courseWithOtherCoursesDependOn[rootCourse]) {
-            courseWithOtherCoursesDependOn[rootCourse].forEach((childCourse)=> {
+
+        if (courseWithOtherCoursesDependOn[rootCourse]) {
+            courseWithOtherCoursesDependOn[rootCourse].forEach((childCourse) => {
                 courseDependsOnOtherCourses[childCourse].delete(parseInt(rootCourse));
-                
-                if(courseDependsOnOtherCourses[childCourse].size === 0) {
+
+                if (courseDependsOnOtherCourses[childCourse].size === 0) {
                     courseWithNoDependencies.push(childCourse + '');
                 }
             });
         }
     }
-    
-    for(i in courseDependsOnOtherCourses) {
-        if(courseDependsOnOtherCourses[i].size !== 0) {
+
+    for (i in courseDependsOnOtherCourses) {
+        if (courseDependsOnOtherCourses[i].size !== 0) {
             return [];
         }
     }
-    
-    if(courseOrders.length < numCourses) {
-        for(i = 0; i < numCourses; i++) {
-            if(!hasCourseOrders[i]) {
+
+    if (courseOrders.length < numCourses) {
+        for (i = 0; i < numCourses; i++) {
+            if (!hasCourseOrders[i]) {
                 courseOrders.push(i);
             }
         }
     }
-    
+
     return courseOrders;
 };
 
-console.log(findOrder(3, [[1,0]]));
+// console.log(findOrder(3, [[1,0]]));
+
+
+/**
+ * @param {number} numCourses
+ * @param {number[][]} prerequisites
+ * @return {number[]}
+ */
+var findOrder = function (numCourses, prerequisites) {
+    let graph = [];
+    let visited = [];
+    let visiting = [];
+    for (let i = 0; i < numCourses; i++) {
+        graph[i] = [];
+        visited[i] = false;
+        visiting[i] = false;
+    }
+    for (let i = 0; i < prerequisites.length; i++) {
+        graph[prerequisites[i][1]].push(prerequisites[i][0])
+    }
+    var order = new Set();
+    var dfs = i => {
+        if (visited[i]) return true;
+        if (visiting[i]) return false;
+        visiting[i] = true;
+        for (let j = 0; j < graph[i].length; j++) {
+            if (!dfs(graph[i][j])) return false;
+        }
+        visiting[i] = false;
+        order.add(i)
+        return true;
+    }
+
+    for (let i = 0; i < numCourses; i++) {
+        if (!dfs(i)) return [];
+        visited[i] = true;
+    }
+    let result = Array.from(order);
+    return result.reverse();
+};
+
+
+let prerequisites = [[1, 0], [2, 6], [1, 7], [6, 4], [7, 0], [0, 5]];
+let x = findOrder(8, prerequisites);
+console.log(...x);

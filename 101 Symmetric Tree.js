@@ -32,27 +32,27 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-var isSymmetric = function(root) {
+var isSymmetric = function (root) {
     var queue = [];
     queue.push(root);
-    
-    while(queue.length !== 0) {
+
+    while (queue.length !== 0) {
         var len = queue.length;
-        
-        if(!isLevelSymmetric(queue)) {
+
+        if (!isLevelSymmetric(queue)) {
             return false;
         }
-        
-        for(var i = 0; i < len; i++) {
+
+        for (var i = 0; i < len; i++) {
             var node = queue.shift();
-            
-            if(node !== null) {
+
+            if (node !== null) {
                 queue.push(node.left);
                 queue.push(node.right);
             }
         }
     }
-    
+
     return true;
 };
 
@@ -60,15 +60,30 @@ function isLevelSymmetric(nodes) {
     var len = nodes.length;
     var beg = 0;
     var end = len - 1;
-    
-    while(beg < end) {
-        if(nodes[beg] === null && nodes[end] === null || (nodes[beg] && nodes[end] && nodes[beg].val === nodes[end].val)) {
+
+    while (beg < end) {
+        if (nodes[beg] === null && nodes[end] === null || (nodes[beg] && nodes[end] && nodes[beg].val === nodes[end].val)) {
             beg++;
             end--;
         } else {
             return false;
         }
     }
-    
+
     return true;
+}
+
+// Depth-First Search
+var isSymmetric = function (root) {
+    return root == null || isSymmetricHelp(root.left, root.right)
+};
+
+var isSymmetricHelp = function (left, right) {
+    if (left == null || right == null) {
+        return left == right;
+    }
+    if (left.val != right.val) {
+        return false;
+    }
+    return isSymmetricHelp(left.left, right.right) && isSymmetricHelp(left.right, right.left)
 }
