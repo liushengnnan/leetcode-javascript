@@ -17,39 +17,92 @@
 // Hide Tags Tree Depth-first Search
 // Hide Similar Problems (M) Path Sum II
 
- /**
-  * Definition for a binary tree node.
-  * function TreeNode(val) {
-  *     this.val = val;
-  *     this.left = this.right = null;
-  * }
-  */
- /**
-  * @param {TreeNode} root
-  * @return {string[]}
-  */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {string[]}
+ */
 
- var binaryTreePaths = function(root) {
-     var res = [];
-     
-     function dfs(node, curr, res) {
-         if(node === null) {
-             return;
-         }
-         
-         curr.push(node.val);
-         
-         if(node.left === null && node.right === null) {
-             res.push(curr.join('->'));
-         } else {
-             dfs(node.left, curr, res);
-             dfs(node.right, curr, res);
-         }
-         
-         curr.pop();
-     }
-     
-     dfs(root, [], res);
-     
-     return res;
- };
+var binaryTreePaths = function (root) {
+    var res = [];
+
+    function dfs(node, curr, res) {
+        if (node === null) {
+            return;
+        }
+
+        curr.push(node.val);
+
+        if (node.left === null && node.right === null) {
+            res.push(curr.join('->'));
+        } else {
+            dfs(node.left, curr, res);
+            dfs(node.right, curr, res);
+        }
+
+        curr.pop();
+    }
+
+    dfs(root, [], res);
+
+    return res;
+};
+
+
+
+/**
+* Definition for a binary tree node.
+* function TreeNode(val) {
+*     this.val = val;
+*     this.left = this.right = null;
+* }
+*/
+/**
+ * @param {TreeNode} root
+ * @return {string[]}
+ */
+var binaryTreePaths = function (root) {
+    if (root === null) { return []; }
+    let res = [];
+    var dfs = (node, path) => {
+        let arr = [...path, node.val];
+        if (node.left === null && node.right === null) {
+            res.push(arr.join('->'));
+            return;
+        }
+        if (node.left) dfs(node.left, arr);
+        if (node.right) dfs(node.right, arr)
+    }
+    dfs(root, []);
+    return res;
+};
+
+
+/**
+ * @param {TreeNode} root
+ * @return {string[]}
+ */
+var binaryTreePaths = function (root) {
+    let paths = [];
+
+    const path = (node, p) => {
+        if (!node) return p;
+        p = p + "" + node.val;
+        if (!node.left && !node.right) {
+            paths.push(p);
+        } else {
+            p = p + "->";
+            path(node.left, p);
+            path(node.right, p);
+        }
+    }
+
+    path(root, "");
+    return paths;
+};

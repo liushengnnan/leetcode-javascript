@@ -1,7 +1,10 @@
-// Leetcode 108 
-// Language: Javascript
-// Problem: https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
-// Author: Chihung Yu
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {
@@ -10,9 +13,18 @@
  * }
  */
 /**
- * @param {number[]} nums
+ * @param {ListNode} head
  * @return {TreeNode}
  */
+var sortedListToBST = function(head) {
+    let nums = [];
+    while (head) {
+        nums.push(head.val);
+        head = head.next;
+    }
+    sortedArrayToBST(nums);
+};
+
 var sortedArrayToBST = function (nums) {
     var generate = function (nums, start, end) {
         if (start > end) {
@@ -29,4 +41,3 @@ var sortedArrayToBST = function (nums) {
     }
     return generate(nums, 0, nums.length - 1);
 };
-
