@@ -18,26 +18,44 @@
  * @param {number[]} nums
  * @return {number}
  */
-var lengthOfLIS = function(nums) {
+var lengthOfLIS = function (nums) {
     var size = nums.length;
-    
-    if(size === 0) {
+
+    if (size === 0) {
         return 0;
     }
-    
+
     dp = Array(size).fill(1);
-    
-    for(var i = 1; i < size; i++) {
-        for(var j = 0; j < i; j++) {
-            if(nums[i] > nums[j]) {
+
+    for (var i = 1; i < size; i++) {
+        for (var j = 0; j < i; j++) {
+            if (nums[i] > nums[j]) {
                 dp[i] = Math.max(dp[i], dp[j] + 1);
             }
         }
     }
-    
+
     return Math.max.apply(null, dp);
 };
 
+var lengthOfLIS = function (nums) {
+    var size = nums.length;
+    if (size === 0) {
+        return 0;
+    }
+    let dp = Array(size).fill(1); // 选中num[i]的 Longest Increasing Subsequence
+    for (let i = 1; i < size; i++) {
+        for (let j = 0; j < i; j++) {
+            if (nums[i] > nums[j]) { // 选中num[i]的条件
+                dp[i] = Math.max(dp[i], dp[j] + 1);
+            }
+        }
+    }
+    console.log(...dp)
+    let result = dp.reduce((max, val) => Math.max(max, val));
+    return result;
+};
 
-
-console.log(Infinity < Infinity)
+let arr = [1,3,5,4,7];
+let x = lengthOfLIS(arr);
+console.log(x);
