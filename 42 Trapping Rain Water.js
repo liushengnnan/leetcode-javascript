@@ -13,7 +13,7 @@
  * @param {number[]} height
  * @return {number}
  */
-var trap = function(height) {
+var trap = function (height) {
     // scan left max
     // scan right max
     // e.g. heights:  0 3 2 1 5 1
@@ -24,27 +24,54 @@ var trap = function(height) {
     // 0 is its left max, 5 is its right max -> that gives zero volumn as it cannot hold water
     // for index 2 -> height 2
     // 3 is its left max and 5 is its right max -> min(3,5) = 3 and height 2 is the bottom of the water bed, so that gives (3-2) -> 1 volumn of water
-    
+
     var leftMax = [];
-    var rightMax=  [];
+    var rightMax = [];
     var water = 0;
-    
+
     // to get the left of i so we do i - 1
-    for(var i = 1; i < height.length; i++) {
+    for (var i = 1; i < height.length; i++) {
         leftMax[i] = leftMax[i] || 0;
         leftMax[i] = Math.max(leftMax[i - 1] || 0, height[i - 1]);
     }
-    
-    for(i = height.length - 2; i >= 0; i--) {
+
+    for (i = height.length - 2; i >= 0; i--) {
         rightMax[i] = rightMax[i] || 0;
         rightMax[i] = Math.max(rightMax[i + 1] || 0, height[i + 1]);
-        
+
         var minHeight = Math.min(leftMax[i], rightMax[i]);
         var waterBottom = height[i];
-        if(minHeight > waterBottom) {
-            water += (minHeight - waterBottom);    
+        if (minHeight > waterBottom) {
+            water += (minHeight - waterBottom);
         }
     }
-    
+
     return water;
 };
+
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function (height) {
+    let leftMax = Array(height.length).fill(0);
+    let rightMax = Array(height.length).fill(0);
+    let water = 0;
+    for (let i = height.length - 2; i >= 0; i--) {
+        rightMax[i] = Math.max(height[i + 1], rightMax[i + 1]);
+    }
+    console.log(...rightMax);
+    for (let i = 1; i < height.length; i++) {
+        leftMax[i] = Math.max(height[i - 1], leftMax[i - 1]);
+        var minH = Math.min(leftMax[i], rightMax[i]);
+        var waterBottom = height[i];
+        if (minH > waterBottom) {
+            water += (minH - waterBottom);
+        }
+    }
+    console.log(...leftMax);
+    return water;
+};
+
+let x = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1];
+let res = trap(x);

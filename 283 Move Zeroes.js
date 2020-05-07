@@ -30,11 +30,11 @@
 //         while(nums[x] !== 0 && x < nums.length) {
 //             x++;
 //         }
-      
+
 //         if(i <= x) {
 //           i = x + 1;
 //         }
-              
+
 //         while(nums[i] === 0) {
 //           i++;
 //         }
@@ -45,7 +45,7 @@
 
 
 // // Simpler but slower algo
-var moveZeroes = function(nums) {
+var moveZeroes = function (nums) {
     y = 0; // y is none zero pointer
 
     // y only increase when i found a none zero number
@@ -61,4 +61,22 @@ var moveZeroes = function(nums) {
 
     return nums;
 };
-console.log(moveZeroes([0,1,0,3,12]));
+
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var moveZeroes = function (nums) {
+    let insertZeroIndex = nums.length - 1;
+    for (let i = nums.length - 1; i >= 0; i--) {
+        if (nums[i] == 0) {
+            for (let j = i + 1; j <= insertZeroIndex; j++) {
+                nums[j - 1] = nums[j];
+            }
+            nums[insertZeroIndex] = 0;
+            insertZeroIndex--;
+        }
+    }
+};
+
+console.log(moveZeroes([0, 1, 0, 3, 12]));
