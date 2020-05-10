@@ -28,6 +28,7 @@ var countPrimes = function(n) {
             for(var j = i + i; j < mem.length; j += i){
                 mem[j] = false;
             }
+            console.log(...mem);
         }
     }
 
@@ -40,3 +41,5 @@ var countPrimes = function(n) {
     
     return count;
 }
+
+let x = countPrimes(20);

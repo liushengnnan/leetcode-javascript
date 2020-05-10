@@ -60,7 +60,6 @@ var trap = function (height) {
     for (let i = height.length - 2; i >= 0; i--) {
         rightMax[i] = Math.max(height[i + 1], rightMax[i + 1]);
     }
-    console.log(...rightMax);
     for (let i = 1; i < height.length; i++) {
         leftMax[i] = Math.max(height[i - 1], leftMax[i - 1]);
         var minH = Math.min(leftMax[i], rightMax[i]);
@@ -69,7 +68,6 @@ var trap = function (height) {
             water += (minH - waterBottom);
         }
     }
-    console.log(...leftMax);
     return water;
 };
 
