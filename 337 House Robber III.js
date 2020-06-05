@@ -28,7 +28,7 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var rob = function(root) {
+var rob = function (root) {
     var result = robViaDfs(root);
     return Math.max.apply(null, result);
 };
@@ -40,14 +40,30 @@ function robViaDfs(root) {
     if (!root) {
         return [0, 0];
     }
-    
+
     var left = robViaDfs(root.left),
         right = robViaDfs(root.right),
         includeRoot,
         notIncludeRoot;
-    
+
     includeRoot = left[1] + right[1] + root.val; // array[1] is value from before of not including root
     notIncludeRoot = Math.max.apply(null, left) + Math.max.apply(null, right);
-    
+
     return [includeRoot, notIncludeRoot];
+}
+
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+let rob = function (root) {
+    function f(root) {
+        if (!root) { return [0, 0] }
+        const [takeLeft, dropLeft] = f(root.left)
+        const [takeRight, dropRight] = f(root.right)
+        const takeThis = root.val + dropLeft + dropRight
+        const dropThis = Math.max(takeLeft, dropLeft) + Math.max(takeRight, dropRight)
+        return [takeThis, dropThis]
+    }
+    return Math.max(...f(root))
 }

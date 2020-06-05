@@ -6,20 +6,29 @@
  * @param {number[]} nums
  * @return {number}
  */
-var singleNumber = function(nums) {
-    
+var singleNumber = function (nums) {
     var singleNum = 0;
-    
-    for(var i = 0; i < 32; i++){
+    for (var i = 0; i < 32; i++) {
         var bit = 0;
-        for(var j = 0; j < nums.length; j++){
+        for (var j = 0; j < nums.length; j++) {
             var num = nums[j];
-            
             bit = (bit + ((num >> i) & 1)) % 3;
         }
-        
         singleNum += bit << i;
     }
-    
     return singleNum;
+};
+
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNumber = function (A) {
+    let ones = 0, twos = 0;
+    for(let i = 0; i < A.length; i++){
+        ones = (ones ^ A[i]) & ~twos;
+        twos = (twos ^ A[i]) & ~ones;
+    }
+    return ones;
 };

@@ -79,4 +79,16 @@ var moveZeroes = function (nums) {
     }
 };
 
+var moveZeroes = function (nums) {
+    if (nums == null || nums.length == 0) return;        
+
+    let insertPos = 0;
+    nums.forEach(num => {
+        if (num != 0) nums[insertPos++] = num;
+    });
+
+    while (insertPos < nums.length) {
+        nums[insertPos++] = 0;
+    }
+}
 console.log(moveZeroes([0, 1, 0, 3, 12]));

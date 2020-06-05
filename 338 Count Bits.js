@@ -17,13 +17,13 @@
 
 
 
-var countBits = function(num) {
+var countBits = function (num) {
     var ans = [0];
-    
-    for(var i = 1; i <= num; i++) {
-        ans[i] = (ans[i] || 0) + ans[i&(i-1)] + 1;
+
+    for (var i = 1; i <= num; i++) {
+        ans[i] = (ans[i] || 0) + ans[i & (i - 1)] + 1;
     }
-    
+
     return ans;
 };
 
@@ -32,5 +32,17 @@ var countBits = function(num) {
 // 0 0 1 1
 // 0 1 0 0
 
+
+/**
+ * @param {number} num
+ * @return {number[]}
+ */
+var countBits = function (num) {
+    let results = new Array(num + 1).fill(0);
+    for (let i = 1; i <= num; i++) {
+        results[i] = results[i & (i - 1)] + 1
+    }
+    return results;
+};
 
 console.log(countBits(3));

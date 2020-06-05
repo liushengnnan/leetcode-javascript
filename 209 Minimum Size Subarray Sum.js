@@ -23,23 +23,23 @@
  */
 
 // O(n) solution
-var minSubArrayLen = function(s, nums) {
+var minSubArrayLen = function (s, nums) {
     var sum = 0;
     var left = 0;
     var right = 0;
     var minLen = Infinity;
-    
-    while(right < nums.length) {
-        while(right < nums.length && sum < s) {
+
+    while (right < nums.length) {
+        while (right < nums.length && sum < s) {
             sum += nums[right++];
         }
-        
-        while(sum >= s) {
+
+        while (sum >= s) {
             minLen = Math.min(minLen, right - left);
             sum -= nums[left++];
         }
     }
-    
+
     return minLen > nums.length ? 0 : minLen;
 };
 
@@ -56,3 +56,31 @@ var minSubArrayLen = function(s, nums) {
 // the distance is index 4 - 1 + 1 = 4
 
 // console.log(minSubArrayLen(11, [1,2,3,4,5]));
+
+
+/**
+ * @param {number} s
+ * @param {number[]} nums
+ * @return {number}
+ */
+// Using 2 pointers 
+var minSubArrayLen = function (s, nums) {
+    let right = 0;
+    let left = 0;
+    let result = Infinity;
+    let sum = 0;
+    while (right < nums.length) {
+        sum += nums[right++];
+        console.log(sum);
+        while (sum >= s) {
+            result = Math.min(result, right - left);
+            sum -= nums[left++];
+            console.log('sum =', sum);
+        }
+    }
+    return result > nums.length ? 0 : result;
+};
+
+let s = 7, nums = [2, 3, 1, 2, 4, 3];
+let x = minSubArrayLen(s, nums);
+console.log(x);

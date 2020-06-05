@@ -19,39 +19,77 @@
  * @param {number[]} nums
  * @return {number}
  */
-var rob = function(nums) {
-    if(nums === null){
+var rob = function (nums) {
+    if (nums === null) {
         return nums;
     }
-    
+
     var even = 0;
     var odd = 0;
-    
-    for(var i = 0; i < nums.length; i++){
-        if(i%2 === 0){
+
+    for (var i = 0; i < nums.length; i++) {
+        if (i % 2 === 0) {
             even = Math.max(even + nums[i], odd);
         } else {
             odd = Math.max(odd + nums[i], even);
         }
     }
-    
-    return Math.max(even,odd);
+
+    return Math.max(even, odd);
 };
 
 
 // var rob = function(nums) {
 //     var dp = [];
-    
+
 //     if(!nums || nums.length === 0) {
 //         return 0;
 //     }
 //     // dp[i] is the max amount can rob on ith house
-    
+
 //     for(var i = 0; i < nums.length; i++){
 //         var num = nums[i];
 //         dp[i] = Math.max((dp[i-2] || 0) + num, (dp[i-1] || 0));
 //     }
-    
+
 //     return dp[nums.length - 1];
 // };
 
+/**
+ * 
+ * DP[n] = max(DP[n-2] + nums[n], DP[n-1])
+ */
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var rob = function (nums) {
+    if (!nums) return 0
+    if (nums.length == 1) return nums[0]
+    let robber = [nums[0], Math.max(nums[0], nums[1])]
+    for (let i = 2; i < nums.length; i++) {
+        const cur = nums[i];
+        let max = Math.max(robber[i - 2] + cur, robber[i - 1])
+        robber.push(max);
+    }
+    return robber[nums.length - 1];
+};
+
+let nums = [2, 7, 9, 3, 1];
+let x = rob(nums);
+// console.log(x);
+
+
+var rob = function (nums) {
+    if (!nums.length) return 0
+    const arr = new Array(nums.length + 1)
+
+    arr[0] = 0
+    arr[1] = nums[0]
+
+    for (let i = 1; i < nums.length; i++) {
+        arr[i + 1] = Math.max(arr[i], nums[i] + arr[i - 1])
+    }
+    return arr[nums.length]
+};

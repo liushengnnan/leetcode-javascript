@@ -13,19 +13,19 @@
  * @param {ListNode} head
  * @return {boolean}
  */
-var isPalindrome = function(head) {
-    if(head === null || head.next === null){
+var isPalindrome = function (head) {
+    if (head === null || head.next === null) {
         return true;
     }
-    
+
     var slow = head;
     var fast = head;
-    
-    while(fast.next && fast.next.next){
+
+    while (fast.next && fast.next.next) {
         slow = slow.next;
         fast = fast.next.next;
     }
-    
+
     // if fast.next === null it's odd
     // else fast.next !== null it's even
     // but wether it's odd or even, we want to reverse slow's next
@@ -39,30 +39,30 @@ var isPalindrome = function(head) {
 
     var secondHead = slow.next;
     slow.next = null;
-    
+
     var p1 = secondHead;
     var p2 = secondHead.next;
-    
-    while(p1 && p2){
+
+    while (p1 && p2) {
         var temp = p2.next;
         p2.next = p1;
         p1 = p2;
         p2 = temp;
     }
-    
+
     secondHead.next = null; // !important
-    
+
     p = p1;
     q = head;
-    
-    while(p && q){
-        if(p.val !== q.val){
+
+    while (p && q) {
+        if (p.val !== q.val) {
             return false;
         }
-        
+
         p = p.next;
         q = q.next;
     }
-    
+
     return true;
 }

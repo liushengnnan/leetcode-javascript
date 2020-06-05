@@ -25,3 +25,22 @@ var getRow = function(rowIndex) {
     
     return result;
 };
+
+
+var getRow = function(numRows) {
+    let res = [1];
+    
+    for (let i = 0; i <= numRows; i++) {
+        let currArr = [];
+        for (let j = 0; j <= i; j++) {
+            if (j === 0 || j === i) {
+                currArr.push(1);
+            } else {
+                currArr.push(res[j-1] + res[j]);
+            }
+        }
+        res = currArr;
+    }
+    
+    return res;
+};
