@@ -58,3 +58,21 @@ var kmp = function (sourceStr, subStr) {
 let s = "BBC ABCDAB ABCDABCDABDE";
 let t = "ABCDABD";
 console.log(kmp(s, t));
+
+
+var findSuperView = function (v1, v2) {
+    let set = new Set();
+    let tmp = v1;
+    while(tmp != null){
+        set.add(tmp);
+        tmp = tmp.superView;
+    }
+    let tmp2 = v2;
+    while(tmp2 != null) {
+        if (set.has(tmp2)) {
+            return tmp2;
+        }
+        tmp2 = tmp2.superView;
+    }
+    return null;
+}

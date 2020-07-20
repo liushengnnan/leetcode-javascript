@@ -19,50 +19,115 @@
  * @return {number[]}
  */
 //  
-var spiralOrder = function(matrix) {
+var spiralOrder = function (matrix) {
     var result = [];
-    
-    if(matrix === null || matrix.length === 0 || matrix[0].length === 0){
+
+    if (matrix === null || matrix.length === 0 || matrix[0].length === 0) {
         return result;
     }
-    
+
     var rows = matrix.length;
     var cols = matrix[0].length;
 
     var x = 0;
     var y = 0;
 
-    while(rows > 0 && cols > 0){
-        if(rows === 1){
-            for(var i = 0; i < cols; i++){
+    while (rows > 0 && cols > 0) {
+        if (rows === 1) {
+            for (var i = 0; i < cols; i++) {
                 result.push(matrix[x][y++]);
             }
             break;
-        } else if(cols === 1){
-            for(i = 0; i < rows; i++){
+        } else if (cols === 1) {
+            for (i = 0; i < rows; i++) {
                 result.push(matrix[x++][y]);
             }
             break;
         }
-        
-        for(i = 0; i < cols - 1; i++){
+
+        for (i = 0; i < cols - 1; i++) {
             result.push(matrix[x][y++]);
         }
-        for(i = 0; i < rows - 1; i++){
+        for (i = 0; i < rows - 1; i++) {
             result.push(matrix[x++][y]);
         }
-        for(i = 0; i < cols - 1; i++){
+        for (i = 0; i < cols - 1; i++) {
             result.push(matrix[x][y--]);
         }
-        for(i = 0; i < rows - 1; i++){
+        for (i = 0; i < rows - 1; i++) {
             result.push(matrix[x--][y]);
         }
-        
+
         x++;
         y++;
         cols -= 2;
         rows -= 2;
     }
-    
+
     return result;
 }
+
+let Input =
+    [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ];
+
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+var spiralOrder = function (matrix) {
+    let result = [];
+
+    if (matrix === null || matrix.length === 0 || matrix[0].length === 0) {
+        return result;
+    }
+
+    var rows = matrix.length;
+    var cols = matrix[0].length;
+
+    let x = 0;
+    let y = 0;
+    while (x < rows && y < cols) {
+        for (let i = x; i < cols; i++) {
+            const val = matrix[y][i];
+            console.log(val);
+            result.push(val);
+        }
+        for (let j = y + 1; j < rows; j++) {
+            const val = matrix[j][cols - 1];
+            console.log(val);
+            result.push(val);
+        }
+
+        for (let i = rows - 2; i >= x; i--) {
+            const val = matrix[rows - 1][i];
+            console.log(val);
+            result.push(val);
+        }
+
+        for (let j = cols - 2; j > y; j--) {
+            const val = matrix[j][x];
+            console.log(val);
+            result.push(val);
+        }
+        x++
+        y++
+        cols -= 2
+        rows -= 2
+    }
+    console.log(...result);
+    return result;
+};
+
+let nums =
+    [
+        [1, 2, 3, 4],
+        [5, 6, 7, 8],
+        [9, 10, 11, 12]
+    ]
+let x = spiralOrder(nums);
+
+let output = [1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7];

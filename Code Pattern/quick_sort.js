@@ -12,19 +12,19 @@
 // Quicksort is a comparison sort, meaning that it can sort items of any type for which a "less-than" relation (formally, a total order) is defined.
 // Efficient implementations of Quicksort are not a stable sort, meaning that the relative order of equal sort items is not preserved.
 
-var quick_sort = function(nums, l, r) {
+var quick_sort = function (nums, l, r) {
     if (l >= r) return;
     let i = l;
     let j = r;
     let temp = nums[l];
-    while(i < j) {
-        while(nums[j] > temp && i < j) {
+    while (i < j) {
+        while (nums[j] > temp && i < j) {
             j--;
         }
         if (i < j) {
             nums[i] = nums[j];
         }
-        while(nums[i] < temp && i < j) {
+        while (nums[i] < temp && i < j) {
             i++;
         }
         if (i < j) {
@@ -40,16 +40,16 @@ var quick_sort = function(nums, l, r) {
 
 
 
-function swap(items, leftIndex, rightIndex){
+function swap(items, leftIndex, rightIndex) {
     var temp = items[leftIndex];
     items[leftIndex] = items[rightIndex];
     items[rightIndex] = temp;
 }
 
 function partition(items, left, right) {
-    var pivot   = items[Math.floor((right + left) / 2)], //middle element
-        i       = left, //left pointer
-        j       = right; //right pointer
+    var pivot = items[Math.floor((right + left) / 2)], //middle element
+        i = left, //left pointer
+        j = right; //right pointer
     while (i <= j) {
         while (items[i] < pivot) {
             i++;
@@ -93,3 +93,4 @@ console.log(sortedArray); //prints [2,3,5,6,7,9]
 
 // let x = partition(nums, 0, nums.length - 1);
 // console.log(nums);
+
